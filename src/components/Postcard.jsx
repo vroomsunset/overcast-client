@@ -2,6 +2,7 @@
 import { differenceInSeconds, differenceInMinutes, differenceInHours, differenceInDays, differenceInMonths, differenceInYears } from 'date-fns';
 import { useState, useEffect, useMemo } from 'react';
 import api from '../api/axios.js';
+import { FaHeart, FaRegHeart, FaRegComment, FaRegBookmark, FaUserPlus } from 'react-icons/fa'
 
 export default function PostCard({ post }) {
     // format time
@@ -58,9 +59,9 @@ export default function PostCard({ post }) {
     }, [likedSet, post]);
 
     //set initial follow state
-    // useEffect(() => {
-    //     setFollow(Boolean(followedset.has(post.user.id)))
-    // }, [followedset, post])
+    useEffect(() => {
+        setFollow(Boolean(followedset.has(post.author.id)))
+    }, [followedset, post])
 
     // toggle like with optimistic update and rollback
     async function togglelike(e) {
@@ -118,25 +119,23 @@ export default function PostCard({ post }) {
     }
 
     return (
-        <div>
-            <div>
-                <div>
-                    <h4><strong>{post.author.username}</strong><b>·</b></h4>
-                    <h4>{time}</h4>
+        <div className='border-2 border-black-900 rounded-md text-gray-900 my-1 mx-1 bg-black-100 w-90%'>
+            <div className='flex justify-between'>
+                <div className='flex'>
+                    <h4 className='mx-2'><strong>{post.author.username} </strong><b className=''>·</b></h4>
+                    <h4 className='text-gray-900'><strong>{time}</strong></h4>
                 </div>
                 <div>
-                    <button onClick={(e) => handleFollow(e, post)}>{follow ? 'u' : 'f'}</button>
+                    <button className='mx-2 cursor-pointer' onClick={(e) => handleFollow(e, post)}>{follow ? <FaUserPlus /> : <FaUserPlus />}</button>
                 </div>
             </div>
-
-            <p>{post.content}</p>
-
-            <div>
-                <button onClick={togglelike} aria-pressed={liked}>
-                    {liked ? 'u' : 'l'} {post._count.likes}
+            <p className='mx-2'>{post.content}</p>
+            <div className='flex items-center'>
+                <button className='mx-2 flex items-center my-1 cursor-pointer' onClick={togglelike} aria-pressed={liked}>
+                    {liked ? <FaRegHeart /> : <FaHeart />} <span className='mx-1'>{post._count.likes}</span>
                 </button>
-                <button> c {post._count?.comments}</button>
-                <button>save</button>
+                <button className='mx-2 flex items-center my-1 cursor-pointer'> <FaRegComment className='mx-1' /> {post._count?.comments}</button>
+                <button className='mx-2 flex items-center my-1 cursor-pointer'><FaRegBookmark className='mx-1' /></button>
             </div>
         </div>
     );

@@ -15,7 +15,7 @@ export default function Explore() {
             const res = await api.get('/post/explore');
             console.log(res.data.posts);
             setPost(res.data.posts);
-            if (res.data.msg === "log in first") {
+            if (res.data.msg === "not authenticated") {
                 navigate('/login');
             }
         }
@@ -25,6 +25,9 @@ export default function Explore() {
     useEffect(() => {
         async function findUser() {
             const res = await api.get('/auth/me');
+            if (res.data == 'oos') {
+                navigate('/login')
+            }
             console.log(res.data.user);
             setUser(res.data.user);
         }
@@ -45,12 +48,12 @@ export default function Explore() {
     // console.log(post);
 
     return (
-        <div className='flex w-screen h-full'>
+        <div className='flex justify-center h-full w-full'>
             <div className='w-30% bg-blue-300'>
                 user
             </div>
 
-            <div className='w-30% bg-red-300'>
+            <div className='w-33% bg-black-300'>
                 {/* <Post onCreate={handlenewpost}></Post> */}
                 {post.map(p => (
                     <Link to={`/comment/${p.id}`} key={p.id}>
@@ -58,7 +61,7 @@ export default function Explore() {
                     </Link>
                 ))}
             </div>
-            <div className='w-30%b bg-green-300'>
+            <div className='w-30%  bg-green-300'>
                 suggestions
             </div>
         </div>
