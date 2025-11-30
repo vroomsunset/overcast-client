@@ -8,7 +8,7 @@ export default function () {
             <div className="w-full bg-blue-400 h-[10%] flex justify-around items-center">
                 <div className="flex justify-between items-center">
                     <div className="text-4xl font-bold mr-4 cursor-pointer">OVERCAST</div>
-                    <div className="flex justify-around">
+                    <div className="flex justify-around hidden md:flex">
                         <div className="text-xl font-bold mx-2 cursor-pointer">Home</div>
                         <div className="text-xl font-bold mx-2 cursor-pointer">About us</div>
                         <div className="text-xl font-bold mx-2 cursor-pointer">Contact</div>
@@ -24,8 +24,8 @@ export default function () {
                     <div>image</div>
                 </div>
                 <div className='w-full h-[10%] flex'>
-                    <div className='items-center justify-center '>get started</div>
-                    <div className='items-center justify-center '>signup</div>
+                    <div className='text-center justify-center '>get started</div>
+                    <div className='text-center justify-center '>signup</div>
 
                 </div>
             </div>
